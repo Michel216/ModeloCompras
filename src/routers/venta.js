@@ -20,12 +20,15 @@ ventaRouter.get('/cliente/:clienteId', [
     check('clienteId', 'No es un ID válido').isMongoId(),
     validarCampos
 ], ventaController.listarPorClienteId);
+ventaRouter.get('/valor-superior/:valor', [validarJWT,validarCampos], ventaController.listarValorSuperiorA);
 ventaRouter.post('/', [
     validarJWT,
     check('cliente', 'El Id del cliente no es valido ').isMongoId(),
     check('detalle', 'El Id de detalle Venta no es valido ').isMongoId(),
     check('fecha', 'La fecha es obligatorio').not().isEmpty(),
 ], ventaController.insertar);
+ventaRouter.post('/entre-fechas', [validarJWT,validarCampos], ventaController.listarEntreFechas);
+ventaRouter.post('/total-entre-fechas', [validarJWT,validarCampos], ventaController.totalVentasEntreFechas);
 ventaRouter.put('/:id', [validarJWT,validarCampos], ventaController.modificar);
 ventaRouter.put('/activar/:id', [
     validarJWT,
@@ -37,9 +40,5 @@ ventaRouter.put('/desactivar/:id', [
     check('id', 'No es un ID válido').isMongoId(),
     validarCampos
 ], ventaController.desactivar);
-ventaRouter.post('/entre-fechas', [validarJWT,validarCampos], ventaController.listarEntreFechas);
-ventaRouter.get('/valor-superior/:valor', [validarJWT,validarCampos], ventaController.listarValorSuperiorA);
-ventaRouter.post('/total-entre-fechas', [validarJWT,validarCampos], ventaController.totalVentasEntreFechas);
-
 module.exports = ventaRouter
 
